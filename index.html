@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Latin Practice</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Latin Practice</h1>
+    <p class="subtitle">Verbs, pronouns, nouns, harder unseens, and hexameter scanning.</p>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="verbs">Verb Parsing</button>
+      <button class="tab" data-tab="pronouns">Pronoun Grid</button>
+      <button class="tab" data-tab="nouns">Noun Grid</button>
+      <button class="tab" data-tab="unseen">Unseen Generator</button>
+      <button class="tab" data-tab="hexameter">Hexameter Scan</button>
+    </nav>
+
+    <section id="verbs" class="panel active">
+      <h2>Verb Parsing</h2>
+      <div class="inline-row">
+        <div class="score" id="v-score">Score: 0/0 · Streak: 0</div>
+      </div>
+      <p>Identify person, number, tense, mood, and voice.</p>
+      <div class="question-box">
+        <div><strong>Form:</strong> <span id="verb-form">—</span></div>
+        <div><strong>Lemma:</strong> <span id="verb-lemma">—</span></div>
+      </div>
+
+      <div class="grid">
+        <label>Person
+          <select id="v-person"><option value="">Choose</option><option>1st</option><option>2nd</option><option>3rd</option></select>
+        </label>
+        <label>Number
+          <select id="v-number"><option value="">Choose</option><option>singular</option><option>plural</option></select>
+        </label>
+        <label>Tense
+          <select id="v-tense">
+            <option value="">Choose</option><option>present</option><option>imperfect</option><option>future</option>
+            <option>perfect</option><option>pluperfect</option><option>future perfect</option>
+          </select>
+        </label>
+        <label>Mood
+          <select id="v-mood"><option value="">Choose</option><option>indicative</option><option>subjunctive</option></select>
+        </label>
+        <label>Voice
+          <select id="v-voice"><option value="">Choose</option><option>active</option><option>passive</option></select>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="verb-check">Check</button>
+        <button id="verb-next" class="secondary">Next</button>
+      </div>
+      <p id="verb-feedback" class="feedback"></p>
+    </section>
+
+    <section id="pronouns" class="panel">
+      <h2>Pronoun Paradigm Grid</h2>
+      <div class="inline-row">
+        <label>Pronoun
+          <select id="pro-pronoun"></select>
+        </label>
+        <div class="score" id="p-score">Score: 0/0 · Streak: 0</div>
+      </div>
+      <p>Fill all cases across gender and number in this order: nominative, accusative, genitive, dative, ablative.</p>
+      <div class="table-wrap">
+        <table class="drill-table" id="pronoun-table"></table>
+      </div>
+      <div class="actions">
+        <button id="pro-check">Check Grid</button>
+        <button id="pro-show" class="secondary">Show Answers</button>
+      </div>
+      <p id="pro-feedback" class="feedback"></p>
+    </section>
+
+    <section id="nouns" class="panel">
+      <h2>Noun Declension Grid</h2>
+      <div class="inline-row">
+        <div class="question-box compact"><strong>Noun:</strong> <span id="noun-lemma">—</span> <span id="noun-meta" class="muted"></span></div>
+        <div class="score" id="n-score">Score: 0/0 · Streak: 0</div>
+      </div>
+      <p>Fill singular + plural forms in this order: nominative, accusative, genitive, dative, ablative.</p>
+      <div class="table-wrap">
+        <table class="drill-table" id="noun-table"></table>
+      </div>
+      <div class="actions">
+        <button id="noun-check">Check Grid</button>
+        <button id="noun-show" class="secondary">Show Answers</button>
+        <button id="noun-next" class="secondary">New Noun</button>
+      </div>
+      <p id="noun-feedback" class="feedback"></p>
+    </section>
+
+    <section id="unseen" class="panel">
+      <h2>Unseen Sentence Generator</h2>
+      <div class="inline-row">
+        <label>Difficulty
+          <select id="u-level">
+            <option value="hard">Hard</option>
+            <option value="very-hard">Very Hard</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="question-box">
+        <div><strong>Latin:</strong> <span id="unseen-latin">—</span></div>
+        <div><strong>English:</strong> <span id="unseen-english" class="hidden">(hidden)</span></div>
+      </div>
+
+      <div class="actions">
+        <button id="unseen-generate">Generate</button>
+        <button id="unseen-reveal" class="secondary">Reveal Translation</button>
+      </div>
+    </section>
+
+    <section id="hexameter" class="panel">
+      <h2>Dactylic Hexameter Scan Practice</h2>
+      <p>Interactive mode: click each syllable to set quantity (unknown → long → short), then place <strong>5 foot breaks</strong> (for 6 feet total) and one caesura.</p>
+      <div class="question-box">
+        <div><strong>Line:</strong> <span id="hex-line">—</span></div>
+      </div>
+
+      <div class="inline-row">
+        <label><input type="checkbox" id="hex-macron-toggle" checked /> Show macrons</label>
+      </div>
+
+      <p id="hex-feedback" class="feedback"></p>
+      <p class="muted" id="hex-answer"></p>
+
+      <div class="legend">
+        <span><strong>Long:</strong> —</span>
+        <span><strong>Short:</strong> ∪</span>
+        <span><strong>Foot break:</strong> |</span>
+        <span><strong>Caesura:</strong> ‖</span>
+      </div>
+
+      <div id="hex-workbench" class="hex-workbench"></div>
+
+      <div class="actions">
+        <button id="hex-check">Check</button>
+        <button id="hex-show" class="secondary">Show Scansion</button>
+        <button id="hex-reset" class="secondary">Reset Markup</button>
+        <button id="hex-next" class="secondary">Next Line</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
