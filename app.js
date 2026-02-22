@@ -251,7 +251,9 @@ const unseenLexicon = {
   nocte: 'nox, noctis (f): at night (abl.)',
   ex: 'ex: out of/from',
   castris: 'castra, castrorum (n pl.): camp (abl.)',
-  egressi: 'egredior: having gone out'
+  egressi: 'egredior: having gone out',
+  a: "a: from/by (ab)",
+  ludus: 'school'
 };
 
 const hexameterLines = [
@@ -883,6 +885,8 @@ const unseenSentences = [
   { level: 'very-hard', latin: 'Dum cīvēs in forō clamant, miles cōnsilium capit quō urbem servet.', english: 'While the citizens shout in the forum, the soldier forms a plan by which he may save the city.' },
   { level: 'very-hard', latin: 'Mīlitēs, quō facilius vincerent, nocte clam ex castrīs ēgressī sunt.', english: 'In order to win more easily, the soldiers secretly went out from the camp at night.' }
 ];
+
+
 
 function renderUnseenLatin() {
   if (!currentUnseen) return;
