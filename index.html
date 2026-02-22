@@ -8,51 +8,71 @@
 </head>
 <body>
   <main class="container">
-    <h1>Latin Practice - Project Created by YAO, Albert</h1>
-    <p class="subtitle">Verbs, pronouns, nouns, harder unseens, and hexameter scanning.</p>
+    <h1>Latin Practice</h1>
+    <p class="subtitle">a Ludus for Latin.</p>
 
     <nav class="tabs">
-      <button class="tab active" data-tab="verbs">Verb Parsing</button>
-      <button class="tab" data-tab="pronouns">Pronoun Grid</button>
-      <button class="tab" data-tab="nouns">Noun Grid</button>
-      <button class="tab" data-tab="unseen">Unseen Generator</button>
-      <button class="tab" data-tab="hexameter">Hexameter Scan</button>
+      <button class="tab active" data-tab="verbs">Verbs</button>
+      <button class="tab" data-tab="pronouns">Pronouns</button>
+      <button class="tab" data-tab="nouns">Nouns</button>
+      <button class="tab" data-tab="unseen">Unseens</button>
+      <button class="tab" data-tab="macrons">Macrons</button>
+      <button class="tab" data-tab="vocab">Vocab</button>
+      <button class="tab" data-tab="hexameter">Hexameter</button>
     </nav>
 
     <section id="verbs" class="panel active">
-      <h2>Verb Parsing</h2>
+      <h2>Verbs</h2>
       <div class="inline-row">
-        <div class="score" id="v-score">Score: 0/0 · Streak: 0</div>
-      </div>
-      <p>Identify person, number, tense, mood, and voice.</p>
-      <div class="question-box">
-        <div><strong>Form:</strong> <span id="verb-form">—</span></div>
-        <div><strong>Lemma:</strong> <span id="verb-lemma">—</span></div>
-      </div>
-
-      <div class="grid">
-        <label>Person
-          <select id="v-person"><option value="">Choose</option><option>1st</option><option>2nd</option><option>3rd</option></select>
-        </label>
-        <label>Number
-          <select id="v-number"><option value="">Choose</option><option>singular</option><option>plural</option></select>
-        </label>
-        <label>Tense
-          <select id="v-tense">
-            <option value="">Choose</option><option>present</option><option>imperfect</option><option>future</option>
-            <option>perfect</option><option>pluperfect</option><option>future perfect</option>
+        <label>Mode
+          <select id="v-mode">
+            <option value="parse">Parse (grammar)</option>
+            <option value="translate">Translate (English meaning)</option>
           </select>
         </label>
-        <label>Mood
-          <select id="v-mood"><option value="">Choose</option><option>indicative</option><option>subjunctive</option></select>
-        </label>
-        <label>Voice
-          <select id="v-voice"><option value="">Choose</option><option>active</option><option>passive</option></select>
-        </label>
+        <div class="score" id="v-score">Score: 0/0 · Streak: 0</div>
+      </div>
+      <p id="v-desc">Identify person, number, tense, mood, and voice.</p>
+
+      <div class="question-box">
+        <div><strong>Verb:</strong> <span id="verb-form">—</span></div>
+        <div id="v-lemma-row" class="muted" style="display:none"><strong>Lemma:</strong> <span id="verb-lemma">—</span></div>
+      </div>
+
+      <div id="v-parse-ui">
+        <div class="grid">
+          <label>Person
+            <select id="v-person"><option value="">Choose</option><option>1st</option><option>2nd</option><option>3rd</option></select>
+          </label>
+          <label>Number
+            <select id="v-number"><option value="">Choose</option><option>singular</option><option>plural</option></select>
+          </label>
+          <label>Tense
+            <select id="v-tense">
+              <option value="">Choose</option><option>present</option><option>imperfect</option><option>future</option>
+              <option>perfect</option><option>pluperfect</option><option>future perfect</option>
+            </select>
+          </label>
+          <label>Mood
+            <select id="v-mood"><option value="">Choose</option><option>indicative</option><option>subjunctive</option></select>
+          </label>
+          <label>Voice
+            <select id="v-voice"><option value="">Choose</option><option>active</option><option>passive</option></select>
+          </label>
+        </div>
+      </div>
+
+      <div id="v-translate-ui" style="display:none">
+        <div class="grid">
+          <label>English
+            <input id="v-en" autocomplete="off" placeholder="Type an English translation" />
+          </label>
+        </div>
       </div>
 
       <div class="actions">
         <button id="verb-check">Check</button>
+        <button id="verb-reveal" class="secondary" style="display:none">Reveal</button>
         <button id="verb-next" class="secondary">Next</button>
       </div>
       <p id="verb-feedback" class="feedback"></p>
@@ -96,25 +116,110 @@
     </section>
 
     <section id="unseen" class="panel">
-      <h2>Unseen Sentence Generator</h2>
+      <h2>Unseen Practice</h2>
       <div class="inline-row">
         <label>Difficulty
           <select id="u-level">
-            <option value="hard">Hard</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard" selected>Hard</option>
             <option value="very-hard">Very Hard</option>
           </select>
         </label>
+        <label><input type="checkbox" id="u-gloss" checked /> Hover gloss</label>
       </div>
 
       <div class="question-box">
         <div><strong>Latin:</strong> <span id="unseen-latin">—</span></div>
-        <div><strong>English:</strong> <span id="unseen-english" class="hidden">(hidden)</span></div>
+        <div class="grid" style="margin-top:.6rem">
+          <label>Your English
+            <input id="unseen-input" autocomplete="off" placeholder="Type your translation" />
+          </label>
+        </div>
+        <div style="margin-top:.4rem"><strong>Key:</strong> <span id="unseen-english" class="hidden">(hidden)</span></div>
       </div>
 
       <div class="actions">
-        <button id="unseen-generate">Generate</button>
-        <button id="unseen-reveal" class="secondary">Reveal Translation</button>
+        <button id="unseen-next">Next Sentence</button>
+        <button id="unseen-check" class="secondary">Check</button>
+        <button id="unseen-reveal" class="secondary">Reveal Key</button>
       </div>
+      <p id="unseen-feedback" class="feedback"></p>
+    </section>
+
+    <section id="macrons" class="panel">
+      <h2>Macron Learn</h2>
+      <div class="inline-row">
+        <div class="score" id="m-score">Score: 0/0 · Streak: 0</div>
+      </div>
+      <p>Click the vowels to add/remove macrons (long vowels). Aim for the dictionary-style spelling.</p>
+
+      <div class="question-box">
+        <div><strong>Meaning:</strong> <span id="m-english">—</span></div>
+        <div><strong>Word (no macrons):</strong> <span id="m-plain">—</span></div>
+        <div class="muted" style="margin-top:.35rem"><strong>Your spelling:</strong> <span id="m-current">—</span></div>
+      </div>
+
+      <div id="macron-workbench" class="macron-workbench"></div>
+
+      <div class="actions">
+        <button id="m-check">Check</button>
+        <button id="m-show" class="secondary">Show Answer</button>
+        <button id="m-next" class="secondary">Next Word</button>
+      </div>
+      <p id="m-feedback" class="feedback"></p>
+    </section>
+
+    <section id="vocab" class="panel">
+      <h2>Vocab Learn</h2>
+      <div class="inline-row">
+        <label>Session
+          <select id="vb-session">
+            <option value="review">Review</option>
+            <option value="learn">Learn (new)</option>
+            <option value="all">All (mix)</option>
+          </select>
+        </label>
+        <label>Direction
+          <select id="vb-mode">
+            <option value="la-en">Latin → English</option>
+            <option value="en-la">English → Latin</option>
+            <option value="mixed">Mixed</option>
+          </select>
+        </label>
+        <label><input type="checkbox" id="vb-ignore-macrons" checked /> Ignore macrons in answers</label>
+      </div>
+
+      <div class="inline-row">
+        <div class="pill-row">
+          <span class="pill" id="vb-stat-due">Due: —</span>
+          <span class="pill" id="vb-stat-new">New: —</span>
+          <span class="pill" id="vb-stat-mastered">Mastered: —</span>
+        </div>
+        <div class="score" id="vb-score">Score: 0/0 · Streak: 0</div>
+      </div>
+
+      <div class="question-box">
+        <div><strong>Prompt:</strong> <span id="vb-prompt">—</span></div>
+        <div><strong>Answer:</strong> <span id="vb-answer" class="hidden">(hidden)</span></div>
+        <div class="muted" id="vb-meta"></div>
+      </div>
+
+      <div class="grid" id="vb-type-ui">
+        <label>Your answer
+          <input id="vb-input" autocomplete="off" placeholder="Type your answer" />
+        </label>
+      </div>
+
+      <div class="actions" id="vb-actions">
+        <button id="vb-check">Check</button>
+        <button id="vb-reveal" class="secondary">Reveal</button>
+        <button id="vb-next" class="secondary">Next</button>
+        <button id="vb-mark-review" class="secondary">Move to Review</button>
+        <button id="vb-reset" class="secondary">Reset Vocab</button>
+      </div>
+
+      <p id="vb-feedback" class="feedback"></p>
     </section>
 
     <section id="hexameter" class="panel">
@@ -148,6 +253,8 @@
       </div>
     </section>
   </main>
+
+  <footer class="footer">by Albert Yao</footer>
 
   <script src="app.js"></script>
 </body>
